@@ -1,7 +1,8 @@
-import graphicsAdapter from "./graphics_adapters"
+import { getGraphicsAdapter } from "./graphics_adapters"
 
 export default class View{
   constructor(options = {}){
+    this.graphicsAdapter = getGraphicsAdapter();
     this.container = this._createContainer();
     this.model = options.model;
 
@@ -14,6 +15,6 @@ export default class View{
   update(){}
 
   _createContainer(){
-    return graphicsAdapter.createContainer()
+    return this.graphicsAdapter.createContainer()
   }
 }

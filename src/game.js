@@ -1,8 +1,9 @@
-import graphicsAdapter from "./graphics_adapters"
+import { getGraphicsAdapter } from "./graphics_adapters"
 
 export default class Game{
   constructor(options = {}){
-    this.stage = graphicsAdapter.createStage(options);
+    this.graphicsAdapter = getGraphicsAdapter();
+    this.stage = this.graphicsAdapter.createStage(options);
     if(this.initialize !== undefined)
       this.initialize(options);
   }
@@ -13,7 +14,7 @@ export default class Game{
 
   _frame(){
     this.frame();
-    graphicsAdapter.render(this.stage);
+    this.graphicsAdapter.render(this.stage);
     requestAnimationFrame(this._frame.bind(this));
   }
 }
