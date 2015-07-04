@@ -1,6 +1,6 @@
 import graphicsAdapter from "./graphics_adapters"
 
-export class View{
+export default class View{
   constructor(options = {}){
     this.container = this._createContainer();
     this.model = options.model;

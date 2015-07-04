@@ -4,8 +4,7 @@ import sinonChai from "sinon-chai"
 
 import { useFakeRaf } from "./helpers/fake_raf"
 
-import { Game } from "../src/game"
-
+import Game from "../src/game"
 
 let expect = chai.expect
 chai.use(sinonChai);

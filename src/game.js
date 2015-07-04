@@ -1,6 +1,6 @@
 import graphicsAdapter from "./graphics_adapters"
 
-export class Game{
+export default class Game{
   constructor(options = {}){
     this.stage = graphicsAdapter.createStage(options);
     if(this.initialize !== undefined)
