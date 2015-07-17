@@ -4,7 +4,8 @@ import Collection from "./src/collection"
 import View from "./src/view"
 import CollectionView from "./src/collection_view"
 import Controls from "./src/controls"
+import { observe } from "./src/observe"
 
 export {
-  View, Model, Collection, Game, CollectionView, Controls
+  View, Model, Collection, Game, CollectionView, Controls, observe
 }
