@@ -1,3 +1,5 @@
+var WebpackNotifierPlugin = require('webpack-notifier');
+
 module.exports = {
   entry: "./index.js",
   output: {
@@ -11,5 +13,8 @@ module.exports = {
         exclude: /node_modules/
       }
     ]
-  }
+  },
+  plugins: [
+    new WebpackNotifierPlugin(),
+  ]
 }
