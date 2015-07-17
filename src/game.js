@@ -12,8 +12,13 @@ export default class Game{
     requestAnimationFrame(this._frame.bind(this))
   }
 
-  _frame(){
-    this.frame();
+  show(view){
+    view.render()
+    this.stage.addChild(view.container);
+  }
+
+  _frame(dt){
+    this.frame(dt * 1000);
     this.graphicsAdapter.render(this.stage);
     requestAnimationFrame(this._frame.bind(this));
   }
