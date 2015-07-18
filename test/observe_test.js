@@ -20,6 +20,13 @@ describe("#observe", function(){
     expect(spy).to.have.been.calledWith(10);
   });
 
+  it("does not trigger the callback when the attribute is set to same value", function(){
+    observe(model, "x", spy);
+    model.x = 10;
+    model.x = 10;
+    expect(spy).to.have.been.calledOnce;
+  });
+
   it("can observe the same attribute several times", function(){
     let spy2 = sinon.spy();
     observe(model, "x", spy);
@@ -54,7 +61,13 @@ describe("#observe", function(){
     expect(model.__x).to.equal(20);
   })
 
-  xit("can observe multiple keys", function(){});
+  it("can observe multiple keys", function(){
+    observe(model, ["x", "y"] , spy);
+    model.x = 10;
+    expect(spy).to.have.been.calledOnce;
+    model.y = 10;
+    expect(spy).to.have.been.calledTwice;
+  });
 
   describe("#mixinObserve", function(){
     it("adds observe method to the target object", function(){

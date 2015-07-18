@@ -7,22 +7,27 @@ function mixinObserve(target){
   }
 }
 
-function observe(target, key, callback){
+function observe(target, keys, callback){
   if(!target._observe){
     _initObserver(target);    
   }  
 
-  target._observe.events.on(`change:${key}`, callback);
+  if(!_.isArray(keys))
+    keys = [keys];
 
-  if(!_isObserving(target, key)){
-    target._observe.obseveables.add(key);
-    let oldValue = target[key];
+  _.each(keys, function(key){
+    target._observe.events.on(`change:${key}`, callback);
 
-    _defineProperties(target, key);
+    if(!_isObserving(target, key)){
+      target._observe.obseveables.add(key);
+      let oldValue = target[key];
 
-    if(!_.isUndefined(oldValue))
-      target[key] = oldValue;
-  }
+      _defineProperties(target, key);
+
+      if(!_.isUndefined(oldValue))
+        target[key] = oldValue;
+    }
+  })
 }
 
 function _initObserver(target){
@@ -55,10 +60,14 @@ function _defineProperties(target, key){
         return target._observe.attributes[`${key}`];
     }, 
     set: function(value){
+      if(target._observe.attributes[`${key}`] === value)
+        return;
+
       if(setter)
         setter.call(target, value);
       else
         target._observe.attributes[`${key}`] = value;
+
       target._observe.events.trigger(`change:${key}`, value);
       // target._observe.events.trigger("change");
     }
