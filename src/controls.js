@@ -15,10 +15,21 @@ let specialKeyMap = {
 }
 
 export default class Controls {
-  config(mapping){
+  constructor(options){
+    this.canvas = options.canvas
+  }
+
+  // mapping: 
+  //  {
+  //     "w": {
+  //       down(){},
+  //       up(){}
+  //     }
+  //   }
+  keyboard(mapping){
     this._keyMap = {};
-    for(let action in mapping){
-      let value = mapping[action], key = value["key"], upHandler = value["upHandler"], downHandler = value["downHandler"];
+    for(let key in mapping){
+      let value = mapping[key], upHandler = value["up"], downHandler = value["down"];
 
       if(_.isString(key)){
         if(!_.isUndefined(specialKeyMap[key]))
@@ -30,8 +41,16 @@ export default class Controls {
       this._keyMap[key] = { upHandler, downHandler }
     }
 
-    DOMEvents.bind(document,"keydown", this._keyDownHandler.bind(this));
-    DOMEvents.bind(document,"keyup", this._keyUpHandler.bind(this));
+    DOMEvents.bind(document, "keydown", this._keyDownHandler.bind(this));
+    DOMEvents.bind(document, "keyup", this._keyUpHandler.bind(this));
+  }
+
+  touch(mapping){
+    this._bindTouchEvent(this.canvas, "start", mapping.start);
+    this._bindTouchEvent(this.canvas, "end", mapping.end);
+    this._bindTouchEvent(this.canvas, "cancle", mapping.cancle);
+    this._bindTouchEvent(this.canvas, "leave", mapping.leave);
+    this._bindTouchEvent(this.canvas, "move", mapping.move);
   }
 
   _keyDownHandler(e){
@@ -53,5 +72,20 @@ export default class Controls {
     
     e.preventDefault();
     return false;
+  }
+
+  _bindTouchEvent(canvas, type, handler){
+    if(!handler)
+      return;
+
+    DOMEvents.bind(canvas, `touch${type}`, function(event){
+      for(let i = 0; i < event.touches.length; i++){
+        let touch = event.touches[i];
+        let {top, left} = canvas.getBoundingClientRect();
+        touch.gameX = touch.clientX - left;
+        touch.gameY = touch.clientY - top;
+      }
+      handler(event);
+    });
   }
 }
