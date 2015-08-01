@@ -18,6 +18,10 @@ export default {
 
   render(stage){
     stage.renderer.render(stage);
+  },
+
+  getCanvas(stage){
+    return stage.renderer.view;
   }
 }
 
