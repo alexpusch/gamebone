@@ -28,6 +28,19 @@ export default class Game{
   handleTouch(mapping){
     this.controls.touch(mapping);
   }
+  set camera(camera){
+    this._camera = camera;
+
+    camera.observe(["tx", "ty", "z"], this._adjustStage.bind(this));
+  }
+
+  _adjustStage(){
+    this.stage.x = this._camera.tx;
+    this.stage.y = this._camera.ty;
+    this.stage.scale.x = this._camera.zoom;
+    this.stage.scale.y = this._camera.zoom;
+  }
+
   _frame(dt){
     this.frame(dt * 1000);
     this.graphicsAdapter.render(this.stage);
