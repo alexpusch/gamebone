@@ -1,5 +1,6 @@
 import { getGraphicsAdapter } from "./graphics_adapters"
 import Controls from "./controls"
+import RequestResponse from "./request_response"
 
 export default class Game{
   constructor(options = {}){
@@ -10,6 +11,7 @@ export default class Game{
     this.controls = new Controls({
       canvas: this.graphicsAdapter.getCanvas(this.stage)
     });
+    this.reqres = new RequestResponse();
   }
 
   start(){
