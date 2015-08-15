@@ -10,24 +10,20 @@ let expect = chai.expect
 chai.use(sinonChai);
 
 describe("Game", () => {
-  let TestGame, testGame;
+  let game;
 
   beforeEach(()=>{
     useFakeRaf();
-
-    class TestGame extends Game{}
-
-    TestGame.prototype.frame = sinon.spy();
-
-    testGame = new TestGame();
-    testGame.frame = sinon.spy();
+    
+    game = new Game();
+    game.frame = sinon.spy();
   })
 
   describe("#start", () => {
     it("calls #frame on each requestAnimationFrame invocation", () => {
-      testGame.start();
+      game.start();
       requestAnimationFrame.invoke()
-      expect(testGame.frame).to.have.been.called;
+      expect(game.frame).to.have.been.called;
     })
   })
 });
