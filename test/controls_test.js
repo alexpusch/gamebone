@@ -23,39 +23,38 @@ function dispatchEvent(keyCode, type)
 } 
 
 describe("Controls", function(){
-  describe("config", function(){
+  describe("keyboard", function(){
     let controls, upSpy, downSpy;
 
     beforeEach(function(){
       upSpy = sinon.spy();
       downSpy = sinon.spy();
 
-      controls = new Controls();
-      controls.config({
-        "moveDown": {
-          key: "a",
-          "upHandler": upSpy,
-          "downHandler": downSpy
+      let canvas = document.createElement("canvas");
+      controls = new Controls({canvas});
+      controls.keyboard({
+        "a": {
+          "up": upSpy,
+          "down": downSpy
         }
       })
     });
 
-    it("binds a key down event to downHandler", function(){
+    it("binds a key down event to down", function(){
       dispatchEvent(65, "keydown");
       expect(downSpy).to.have.been.called;
     });
 
-    it("binds a key up event to downHandler", function(){
+    it("binds a key up event to down", function(){
       dispatchEvent(65, "keyup");
       expect(upSpy).to.have.been.called;
     });
 
     it("can bind the space key", function(){
-      controls.config({
-        "moveDown": {
-          key: "space",
-          "upHandler": upSpy,
-          "downHandler": downSpy
+      controls.keyboard({
+        "space": {
+          "up": upSpy,
+          "down": downSpy
         }
       });
       dispatchEvent(20, "keydown");
@@ -63,18 +62,16 @@ describe("Controls", function(){
     })
 
     it("can bind the left arrow key", function(){
-      controls.config({
-        "moveLeft": {
-          key: "left",
-          "upHandler": upSpy,
-          "downHandler": downSpy
+      controls.keyboard({
+        "left": {
+          "up": upSpy,
+          "down": downSpy
         }
       });
       dispatchEvent(37, "keydown");
       expect(downSpy).to.have.been.called;
     })
 
-    xit("binds multiple keys to an action", function(){});
     xit("binds keys with modifiers", function(){});
   })
 })
