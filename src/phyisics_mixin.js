@@ -1,8 +1,13 @@
 import * as p2 from "p2/build/p2"
+import _ from "lodash"
+
+import mixin from "./mixin"
+
+let P2Physics = {};
 
 function definePositionProperty(target, name){
   let index = name === "x" ? 0 : 1;
-  Object.defineProperty(target.prototype, name, {
+  Object.defineProperty(target, name, {
     enumerable: true,
     configurable: true,
     get: function(){
@@ -15,7 +20,7 @@ function definePositionProperty(target, name){
 }
 
 function defineProperty(target, name){
-  Object.defineProperty(target.prototype, name, {
+  Object.defineProperty(target, name, {
     enumerable: true,
     configurable: true,
     get: function(){
@@ -27,13 +32,32 @@ function defineProperty(target, name){
   })
 }
 
-function mixinP2Phyisics(target){
-  definePositionProperty(target, "x");
-  definePositionProperty(target, "y");
+definePositionProperty(P2Physics, "x");
+definePositionProperty(P2Physics, "y");
 
-  defineProperty(target, "velocity");
-  defineProperty(target, "angularVelocity");
-  defineProperty(target, "angle");
+defineProperty(P2Physics, "velocity");
+defineProperty(P2Physics, "angularVelocity");
+defineProperty(P2Physics, "angle");
+
+function mixinP2Phyisics(target){
+  let fields = ["x", "y", "velocity", "angularVelocity", "angle"];
+  
+  let temps = _(fields)
+    .map(function(field){
+      if(target[field])
+        return {name: field, value: target[field]};
+      else
+        return undefined;
+    })
+    .compact()
+    .value();
+
+  mixin(target, P2Physics);
+
+  _.each(temps, function(temp){
+    target[temp.name] = temp.value;
+  })
 }
+
 
 export default mixinP2Phyisics;
