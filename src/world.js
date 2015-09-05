@@ -4,7 +4,7 @@ import * as _ from "lodash"
 
 export default class World{
   constructor(options = {}){
-    this.world = new p2.World(options);
+    this.world = options.world || new p2.World(options);
     this.models = new Set();
   }
 
@@ -50,6 +50,18 @@ export default class World{
     this.models.forEach(function(model){
       if(_.isFunction(model.postStep))
         model.postStep(dt);
+    })
+  }
+
+  onCollision(type1, type2, handler){
+    this.world.on("beginContact", function(evt){
+      let model1 = evt.bodyA.model, model2 = evt.bodyB.model;
+
+      if(model1 instanceof type1 && model2 instanceof type2){
+        handler(model1, model2, evt);
+      } else if (model2 instanceof type1 && model1 instanceof type2){
+        handler(model2, model1, evt);
+      }
     })
   }
 }
