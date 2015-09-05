@@ -19,6 +19,26 @@ export default class World{
     this.models.add(model);
   }
 
+  remove(model){
+    delete model.body;
+    this.world.removeBody(model);
+    this.models.delete(model);
+  }
+
+  addCollection(collection){
+    collection.each((model) => {
+      this.add(model);
+    });
+
+    collection.on("add", (model) => {
+      this.add(model);
+    });
+
+    collection.on("remove", (model) => {
+      this.remove(model);
+    });
+  }
+
   step(dt){
     this.models.forEach(function(model){
       if(_.isFunction(model.preStep))
