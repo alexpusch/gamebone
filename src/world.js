@@ -9,12 +9,13 @@ export default class World{
   }
 
   add(model){
-    let body = model.body;
-    this.world.addBody(body);
-
+    let body = model.createBody();
+    model.body = body;
     body.model = model;
-    body.velocity = model.velocity;
+    
+    mixinP2Physics(model);
 
+    this.world.addBody(body);
     this.models.add(model);
   }
 
