@@ -4,6 +4,7 @@ import sinonChai from "sinon-chai"
 
 import CollectionView from "../src/collection_view"
 import Collection from "../src/collection"
+import Model from "../src/model"
 
 let expect = chai.expect;
 
@@ -19,8 +20,8 @@ describe("CollectionView", function(){
 
     collection = new Collection();
 
-    model1 = {a: 1};
-    model2 = {a: 2};
+    model1 = new Model({a: 1});
+    model2 = new Model({a: 2});
 
     collection.add(model1);
     collection.add(model2);
@@ -42,7 +43,7 @@ describe("CollectionView", function(){
     })
 
     it("renders a new child view for each new model added to collection", function(){
-      let model3 = {a:3};
+      let model3 = new Model({a:3});
       collection.add(model3);
       expect(renderSpy).to.have.been.calledTrice
       expect(collectionView.container.addChild).to.have.been.calledTrice

@@ -36,7 +36,7 @@ export default class CollectionView extends View{
   }
 
   _removeModelView(model){
-    this.container.removeChild(this._getChildView(model).el);
+    this.container.removeChild(this._getChildView(model).container);
     this.childViews.delete(model);
   }
 
