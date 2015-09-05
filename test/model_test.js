@@ -25,4 +25,12 @@ describe("Model", function(){
       expect(model.b).to.equal(2);
     })
   })
+
+  describe("#destroy", function(){
+    it("trigger a destroy event", function () {
+      model.on("destroy", spy);
+      model.destroy();
+      expect(spy).to.have.been.called;
+    });
+  })
 })

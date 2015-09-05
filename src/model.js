@@ -11,6 +11,10 @@ export default class Model{
       this.initialize();
     }
   }
+
+  destroy(){
+    this.trigger("destroy");
+  }
 }
 
 mixinEvents(Model);

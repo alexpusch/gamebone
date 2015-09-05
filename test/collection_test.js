@@ -3,13 +3,15 @@ import * as sinon from "imports?define=>false&require=>false!sinon/pkg/sinon"
 import sinonChai from "sinon-chai"
 
 import Collection from "../src/collection"
+import Model from "../src/model"
 
 let expect = chai.expect;
 
 describe("Collection", function(){
   let collection, model;
+
   beforeEach(function(){
-    model = {a: 1};
+    model = new Model({a: 1});
     collection = new Collection();
   })
 
@@ -24,6 +26,12 @@ describe("Collection", function(){
       collection.on("add", spy);
       collection.add(model);
       expect(spy).to.have.been.calledWith(model);
+    })
+
+    it("removes the model from the collection when the model is destroied", function(){
+      collection.add(model);
+      model.destroy();
+      expect(collection.length).to.equal(0);
     })
   })
 
@@ -63,7 +71,7 @@ describe("Collection", function(){
 
   describe("iterator", function(){
     it("iterates over object", function(){
-      let model2 = {a: 2};
+      let model2 = new Model({a: 2});
       collection.add(model);
       collection.add(model2);
       let iterator = collection[Symbol.iterator]();
