@@ -52,6 +52,10 @@ function mixinP2Phyisics(target){
     .compact()
     .value();
 
+  _.each(fields, function(field){
+    delete target[field];
+  })
+  
   mixin(target, P2Physics);
 
   _.each(temps, function(temp){
