@@ -1,6 +1,7 @@
 import { getGraphicsAdapter } from "./graphics_adapters"
 import Controls from "./controls"
 import RequestResponse from "./request_response"
+import { mixinEvents } from "./events"
 
 export default class Game{
   constructor(options = {}){
@@ -56,6 +57,9 @@ export default class Game{
   _frame(dt){
     this.frame(dt * 1000);
     this.graphicsAdapter.render(this.stage);
+    this.trigger("frame");
     requestAnimationFrame(this._frame.bind(this));
   }
-}
+}}
+
+mixinEvents(Game);
