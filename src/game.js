@@ -32,7 +32,16 @@ export default class Game{
   set camera(camera){
     this._camera = camera;
 
-    camera.observe(["tx", "ty", "z"], this._adjustStage.bind(this));
+    camera.observe(["tx", "ty", "zoom"], this._adjustStage.bind(this));
+    this.reqres.setHandler("camera:position", () => {
+      return {
+        x: -camera.tx,
+        y: -camera.ty,
+        z: camera.zoom
+      }
+    })
+  }
+
   get width(){
     return this.options.width;
   }
