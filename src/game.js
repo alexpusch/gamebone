@@ -32,6 +32,12 @@ export default class Game{
     this._camera = camera;
 
     camera.observe(["tx", "ty", "z"], this._adjustStage.bind(this));
+  get width(){
+    return this.options.width;
+  }
+
+  get height(){
+    return this.options.height;
   }
 
   _adjustStage(){
