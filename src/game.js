@@ -8,8 +8,6 @@ export default class Game{
     this.graphicsAdapter = getGraphicsAdapter();
     this.stage = this.graphicsAdapter.createStage(options);
     this.options = options;    
-      canvas: this.graphicsAdapter.getCanvas(this.stage)
-    });
     this.reqres = new RequestResponse();
   }
 
@@ -23,12 +21,15 @@ export default class Game{
   }
 
   handleKeyboard(mapping){
+    this._ensureControls();
     this.controls.keyboard(mapping);
   }
 
   handleTouch(mapping){
+    this._ensureControls();
     this.controls.touch(mapping);
   }
+
   set camera(camera){
     this._camera = camera;
 
@@ -69,6 +70,6 @@ export default class Game{
     this.trigger("frame");
     requestAnimationFrame(this._frame.bind(this));
   }
-}}
+}
 
 mixinEvents(Game);

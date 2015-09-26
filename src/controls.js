@@ -4,7 +4,7 @@ import DOMEvents from "./dom_events"
 let specialKeyMap = {
   "enter": 13,
   "shift": 16,
-  "ctrl":  17,
+  "ctrl":  32,
   "alt": 18,
   "space": 20,
   "escape":  27,
