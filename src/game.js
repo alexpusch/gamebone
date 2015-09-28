@@ -45,6 +45,10 @@ export default class Game{
     })
   }
 
+  setFilters(filters){
+    this.stage.filters = filters
+  }
+
   get width(){
     return this.options.width;
   }
