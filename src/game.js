@@ -2,16 +2,18 @@ import { getGraphicsAdapter } from "./graphics_adapters"
 import Controls from "./controls"
 import RequestResponse from "./request_response"
 import { mixinEvents } from "./events"
+import PixiStage from "./pixi_stage"
 
 export default class Game{
   constructor(options = {}){
     this.graphicsAdapter = getGraphicsAdapter();
-    this.stage = this.graphicsAdapter.createStage(options);
+    this.stage = new PixiStage(options);
     this.options = options;    
     this.reqres = new RequestResponse();
   }
 
   start(){
+    this.stage.show();
     requestAnimationFrame(this._frame.bind(this))
   }
 
@@ -52,21 +54,23 @@ export default class Game{
   }
 
   _adjustStage(){
-    this.stage.x = this._camera.tx;
-    this.stage.y = this._camera.ty;
-    this.stage.scale.x = this._camera.zoom;
-    this.stage.scale.y = this._camera.zoom;
+    this.stage.actOnPixiStage((stage) => {
+      stage.x = this._camera.tx;
+      stage.y = this._camera.ty;
+      stage.scale.x = this._camera.zoom;
+      stage.scale.y = this._camera.zoom;
+    })
   }
 
   _ensureControls(){
     this.controls = new Controls({
-      canvas: this.graphicsAdapter.getCanvas(this.stage)
+      canvas: this.stage.canvas
     });
   }
 
   _frame(dt){
     this.frame(dt * 1000);
-    this.graphicsAdapter.render(this.stage);
+    this.stage.render();
     this.trigger("frame");
     requestAnimationFrame(this._frame.bind(this));
   }
