@@ -14,7 +14,18 @@ export default class Camera{
     this.initialize.apply(this, arguments);
   }
 
+  start(target){
+    this.observe(["tx", "ty", "zoom"], this._adjustTarget.bind(this, target));
+  }
+
   initialize(){}
+
+  _adjustTarget(target){
+    target.x = this.tx;
+    target.y = this.ty;
+    target.scale.x = this.zoom;
+    target.scale.y = this.zoom;
+  }
 } 
 
 mixinObserve(Camera);

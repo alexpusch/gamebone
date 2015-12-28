@@ -32,19 +32,6 @@ export default class Game{
     this.controls.touch(mapping);
   }
 
-  set camera(camera){
-    this._camera = camera;
-
-    camera.observe(["tx", "ty", "zoom"], this._adjustStage.bind(this));
-    this.reqres.setHandler("camera:position", () => {
-      return {
-        x: -camera.tx,
-        y: -camera.ty,
-        z: camera.zoom
-      }
-    })
-  }
-
   setFilters(filters){
     this.stage.filters = filters
   }
