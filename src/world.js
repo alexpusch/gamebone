@@ -20,8 +20,8 @@ export default class World{
   }
 
   remove(model){
+    this.world.removeBody(model.body);
     delete model.body;
-    this.world.removeBody(model);
     this.models.delete(model);
   }
 
