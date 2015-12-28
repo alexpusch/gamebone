@@ -8,6 +8,7 @@ import { observe } from "./src/observe"
 import World from "./src/world"
 import mixinP2Physics from "./src/phyisics_mixin"
 import Camera from "./src/camera"
+import Layout from "./src/layout"
 
 export {
   View,
@@ -19,5 +20,6 @@ export {
   observe,
   World,
   mixinP2Physics,
-  Camera
+  Camera,
+  Layout
 }
