@@ -1,4 +1,5 @@
 import { getGraphicsAdapter } from "./graphics_adapters"
+import { mixinEvents } from "./events"
 
 export default class View{
   constructor(options = {}){
@@ -23,3 +24,5 @@ export default class View{
     this.container.destroy();
   }
 }
+
+mixinEvents(View);
