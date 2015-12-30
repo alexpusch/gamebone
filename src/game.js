@@ -6,6 +6,7 @@ import RequestResponse from "./request_response"
 import { mixinEvents } from "./events"
 import PixiStage from "./pixi_stage"
 import Layout from "./layout"
+import ScreenManager from "./screen_manager"
 
 export default class Game{
   constructor(options = {}){
@@ -18,6 +19,7 @@ export default class Game{
     this.layout = new Layout(options);
     this.options = options;    
     this.reqres = new RequestResponse();
+    this.screenManager = new ScreenManager();
   }
 
   start(){
@@ -44,6 +46,14 @@ export default class Game{
 
   setFilters(filters){
     this.stage.filters = filters
+  }
+
+  addScreens(screens){
+    this.screenManager.add(screens);
+  }
+
+  gotoScreen(screenName){
+    this.screenManager.goto(screenName);
   }
 
   get width(){
