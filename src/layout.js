@@ -23,4 +23,8 @@ export default class Layout extends View{
     view.render();
     this.regions.get(regionName).addChild(view.container);
   }
+
+  empty(regionName){
+    this.regions.get(regionName).removeChildren();
+  }
 }

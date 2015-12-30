@@ -31,6 +31,9 @@ export default class Game{
   }
 
   show(regionName, view){
+    view.on("destroy", () => {
+      this.layout.empty(regionName);
+    })
     this.layout.show(regionName, view);
   }
 
