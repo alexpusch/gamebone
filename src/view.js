@@ -17,4 +17,9 @@ export default class View{
   _createContainer(){
     return this.graphicsAdapter.createContainer()
   }
+
+  destroy(){
+    this.trigger("destroy")
+    this.container.destroy();
+  }
 }
