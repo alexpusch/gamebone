@@ -5,6 +5,10 @@ function mixinObserve(target){
   target.prototype.observe = function(key, callback){
     observe(this, key, callback);
   }
+
+  target.prototype.unobserve = function(key, callback){
+    unobserve(this, key, callback);
+  }
 }
 
 function observe(target, keys, callback){
@@ -28,6 +32,15 @@ function observe(target, keys, callback){
         target[key] = oldValue;
     }
   })
+}
+
+function unobserve(target, keys, callback){
+  if(!_.isArray(keys))
+    keys = [keys];
+
+  _.each(keys, function(key){
+    target._observe.events.off(`change:${key}`, callback);
+  });
 }
 
 function _initObserver(target){
@@ -74,4 +87,4 @@ function _defineProperties(target, key){
   });
 }
 
-export { observe, mixinObserve }
+export { observe, unobserve, mixinObserve }

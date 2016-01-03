@@ -2,7 +2,7 @@ import * as chai from "chai"
 import * as sinon from "imports?define=>false&require=>false!sinon/pkg/sinon"
 import sinonChai from "sinon-chai"
 
-import { observe, mixinObserve } from "../src/observe"
+import { observe, unobserve, mixinObserve } from "../src/observe"
 
 let expect = chai.expect;
 
@@ -82,3 +82,34 @@ describe("#observe", function(){
   })
 })
   
+describe('#unobserve', function () {
+  let model, spy;
+
+  beforeEach(function(){
+    model = {};
+    spy = sinon.spy();
+  })
+
+  it("remove the observer from object", function(){
+    observe(model, "x", spy);
+    unobserve(model, "x", spy);
+    model.x = 10;
+    expect(spy).not.to.have.been.called;
+  });
+
+  it("does not remove the observer if a different callback is passed", function(){
+    observe(model, "x", spy);
+    let spy2 = sinon.spy();
+    unobserve(model, "x", spy2);
+    model.x = 10;
+    expect(spy).to.have.been.called;
+  });
+
+  it("does not remove the observer of other attributes", function(){
+    observe(model, "x", spy);
+    observe(model, "y", spy);
+    unobserve(model, "y", spy);
+    model.x = 10;
+    expect(spy).to.have.been.called;
+  });
+});
