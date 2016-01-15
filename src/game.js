@@ -1,9 +1,9 @@
 import _ from "lodash"
+import { mixinEvents } from "observerkit";
 
 import { getGraphicsAdapter } from "./graphics_adapters"
 import Controls from "./controls"
 import RequestResponse from "./request_response"
-import { mixinEvents } from "./events"
 import PixiStage from "./pixi_stage"
 import Layout from "./layout"
 import ScreenManager from "./screen_manager"
@@ -17,7 +17,7 @@ export default class Game{
     this.graphicsAdapter = getGraphicsAdapter();
     this.stage = new PixiStage(options);
     this.layout = new Layout(options);
-    this.options = options;    
+    this.options = options;
     this.reqres = new RequestResponse();
     this.screenManager = new ScreenManager();
   }
@@ -31,9 +31,6 @@ export default class Game{
   }
 
   show(regionName, view){
-    view.on("destroy", () => {
-      this.layout.empty(regionName);
-    })
     this.layout.show(regionName, view);
   }
 
@@ -83,11 +80,13 @@ export default class Game{
   }
 
   _frame(dt){
-    this.frame(dt * 1000);
+    if(this.frame instanceof Function)
+      this.frame(dt * 1000);
+
     this.stage.render();
     this.trigger("frame");
     requestAnimationFrame(this._frame.bind(this));
   }
 }
 
-mixinEvents(Game);
+mixinEvents(Game.prototype);

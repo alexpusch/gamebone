@@ -2,14 +2,10 @@ import View from "./view"
 
 export default class CollectionView extends View{
   constructor(options = {}){
-    super();
+    super(options);
     this.collection = options.collection;
     this.childViewType = options.childViewType;
     this.childViews = new Map();
-
-    if(typeof(this.initialize) === "function"){
-      this.initialize(options);
-    }
   }
 
   update(){
@@ -20,12 +16,11 @@ export default class CollectionView extends View{
 
   render(){
     for(let model of this.collection){
-      this._addModelView(model);     
+      this._addModelView(model);
     }
 
-    // TODO: handle view destroy - off events, or implement listenTo
-    this.collection.on("add", this._addModelView.bind(this));
-    this.collection.on("remove", this._removeModelView.bind(this));
+    this.listenTo(this.collection, "add", this._addModelView.bind(this));
+    this.listenTo(this.collection, "remove", this._removeModelView.bind(this));
   }
 
   _addModelView(model){

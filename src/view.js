@@ -1,14 +1,18 @@
-import { getGraphicsAdapter } from "./graphics_adapters"
-import { mixinEvents } from "./events"
+import Base from "./base";
 
-export default class View{
+import { getGraphicsAdapter } from "./graphics_adapters"
+
+export default class View extends Base{
   constructor(options = {}){
+    super(options);
+
     this.graphicsAdapter = getGraphicsAdapter();
     this.container = this._createContainer();
     this.model = options.model;
 
-    if(this.initialize)
-      this.initialize(options);
+    this.on("destroy", () => {
+      this.container.destroy();
+    });
   }
 
   render(){}
@@ -16,13 +20,6 @@ export default class View{
   update(){}
 
   _createContainer(){
-    return this.graphicsAdapter.createContainer()
-  }
-
-  destroy(){
-    this.trigger("destroy")
-    this.container.destroy();
+    return this.graphicsAdapter.createContainer();
   }
 }
-
-mixinEvents(View);

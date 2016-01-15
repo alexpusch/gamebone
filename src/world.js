@@ -1,9 +1,13 @@
+import Base from "./base";
+
 import * as p2 from "p2/build/p2"
 import mixinP2Physics from "./phyisics_mixin"
 import * as _ from "lodash"
 
-export default class World{
+export default class World extends Base{
   constructor(options = {}){
+    super(options);
+
     this.world = options.world || new p2.World(options);
     this.models = new Set();
   }
@@ -12,7 +16,7 @@ export default class World{
     let body = model.createBody();
     model.body = body;
     body.model = model;
-    
+
     mixinP2Physics(model);
 
     this.world.addBody(body);
@@ -30,11 +34,11 @@ export default class World{
       this.add(model);
     });
 
-    collection.on("add", (model) => {
+    this.listenTo(collection, "add", (model) => {
       this.add(model);
     });
 
-    collection.on("remove", (model) => {
+    this.listenTo(collection, "remove", (model) => {
       this.remove(model);
     });
   }
@@ -62,6 +66,6 @@ export default class World{
       } else if (model2 instanceof type1 && model1 instanceof type2){
         handler(model2, model1, evt);
       }
-    })
+    });
   }
 }

@@ -20,8 +20,14 @@ export default class Layout extends View{
   }
 
   show(regionName, view){
+    let region = this.regions.get(regionName);
+
     view.render();
-    this.regions.get(regionName).addChild(view.container);
+    region.addChild(view.container);
+
+    this.listenTo(view, "destroy", () => {
+      region.removeChild(view.container);
+    });
   }
 
   empty(regionName){

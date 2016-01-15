@@ -1,21 +1,14 @@
-import { mixinEvents } from "./events"
-import { mixinObserve } from "./observe"
+import Base from "./base";
+
+import { mixinObserve } from "observerkit";
 
 import _ from "lodash"
 
-export default class Model{
+export default class Model extends Base{
   constructor(attributes = {}){
-    _.extend(this, attributes); 
-
-    if(_.isFunction(this.initialize)){
-      this.initialize();
-    }
-  }
-
-  destroy(){
-    this.trigger("destroy");
+    super();
+    _.extend(this, attributes);
   }
 }
 
-mixinEvents(Model);
-mixinObserve(Model);
+mixinObserve(Model.prototype);
