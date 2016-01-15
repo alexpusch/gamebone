@@ -1,16 +1,19 @@
 var WebpackNotifierPlugin = require('webpack-notifier');
 
 module.exports = {
-  entry: "./index.js",
+  entry: ["babel-polyfill", "./index.js"],
   output: {
       path: "dist",
       filename: "bundle.js"
   },
   module : {
-    loaders: [ { 
+    loaders: [ {
         test   : /.js$/,
-        loader : 'babel-loader?optional[]=runtime',
-        exclude: /node_modules/
+        loader : 'babel-loader',
+        exclude: /node_modules/,
+        query  : {
+          presets: ['es2015']
+        }
       }
     ]
   },
