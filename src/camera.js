@@ -1,10 +1,10 @@
-import _ from "lodash"
+import _ from 'lodash';
 
-import Base from "./base";
-import { mixinObserve } from "observerkit";
+import Base from './base';
+import { mixinObserve } from 'observerkit';
 
 export default class Camera extends Base{
-  constructor(options){
+  constructor(options) {
     super();
     this.viewportWidth = options.width;
     this.viewportHeight = options.height;
@@ -14,11 +14,11 @@ export default class Camera extends Base{
     this.zoom = 1;
   }
 
-  start(target){
+  start(target) {
     this.target = target;
-    this.observe("tx ty zoom", this._adjustTarget.bind(this, target));
+    this.observe('tx ty zoom', this._adjustTarget.bind(this, target));
 
-    this.on("destroy", () => {
+    this.on('destroy', () => {
       this.target.x = 0;
       this.target.y = 0;
 
@@ -27,7 +27,7 @@ export default class Camera extends Base{
     });
   }
 
-  _adjustTarget(target){
+  _adjustTarget(target) {
     target.x = this.tx;
     target.y = this.ty;
     target.scale.x = this.zoom;

@@ -5,6 +5,7 @@ export default {
       obj[type + fn] = function() {
         return obj['e' + type + fn](window.event);
       };
+
       return obj.attachEvent('on' + type, obj[type + fn]);
     } else {
       return obj.addEventListener(type, fn, false);
@@ -18,5 +19,5 @@ export default {
     } else {
       return obj.removeEventListener(type, fn, false);
     }
-  }
-}
+  },
+};

@@ -1,11 +1,11 @@
-import Base from "./base";
+import Base from './base';
 
-import { mixinObserve } from "observerkit";
+import { mixinObserve } from 'observerkit';
 
-import _ from "lodash"
+import _ from 'lodash';
 
 export default class Model extends Base{
-  constructor(attributes = {}){
+  constructor(attributes = {}) {
     super();
     _.extend(this, attributes);
   }

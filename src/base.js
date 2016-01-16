@@ -1,30 +1,30 @@
-import { mixinEvents, Listener, Observer } from "observerkit";
+import { mixinEvents, Listener, Observer } from 'observerkit';
 
 export default class Base{
-  constructor(){
+  constructor() {
     this.listener = new Listener();
     this.observer = new Observer();
   }
 
-  destroy(){
+  destroy() {
     this.listener.stopListening();
     this.observer.stopObserving();
-    this.trigger("destroy");
+    this.trigger('destroy');
   }
 
-  listenTo(...args){
+  listenTo(...args) {
     this.listener.listenTo(...args);
   }
 
-  stopListeningTo(...args){
+  stopListeningTo(...args) {
     this.listener.stopListeningTo(...args);
   }
 
-  observeOn(...args){
+  observeOn(...args) {
     this.observer.observe(...args);
   }
 
-  stopObservingOn(...args){
+  stopObservingOn(...args) {
     this.observer.stopObservingOn(...args);
   }
 }

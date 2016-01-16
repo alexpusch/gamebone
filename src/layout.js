@@ -1,7 +1,7 @@
-import View from "./view"
+import View from './view';
 
 export default class Layout extends View{
-  constructor(options){
+  constructor(options) {
     super(options);
 
     let regionNames = options.regions;
@@ -12,25 +12,25 @@ export default class Layout extends View{
     });
   }
 
-  render(){
+  render() {
     this.regions.forEach((region, regionName) => {
       this.container.addChild(region);
       this[regionName] = region;
-    })
+    });
   }
 
-  show(regionName, view){
+  show(regionName, view) {
     let region = this.regions.get(regionName);
 
     view.render();
     region.addChild(view.container);
 
-    this.listenTo(view, "destroy", () => {
+    this.listenTo(view, 'destroy', () => {
       region.removeChild(view.container);
     });
   }
 
-  empty(regionName){
+  empty(regionName) {
     this.regions.get(regionName).removeChildren();
   }
 }

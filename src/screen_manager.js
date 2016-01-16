@@ -1,22 +1,22 @@
-import _ from "lodash"
+import _ from 'lodash';
 
 export default class ScreenManager{
-  constructor(){
+  constructor() {
     this.screens = {};
     this.activeScreen = undefined;
   }
 
-  add(screens){
+  add(screens) {
     this.screens = _.extend(this.screens, screens);
   }
 
-  goto(screenName){
-    if(this.activeScreen)
+  goto(screenName) {
+    if (this.activeScreen)
       this.activeScreen.destroy();
 
     let screen = this.screens[screenName];
 
-    if(screen){
+    if (screen) {
       screen.start();
       this.activeScreen = screen;
     }
