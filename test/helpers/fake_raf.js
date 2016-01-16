@@ -1,26 +1,26 @@
-function createFakeRaf(){
+function createFakeRaf() {
   let callbacks = [];
 
-  let fakeRaf = function(callback){
+  let fakeRaf = function(callback) {
     callbacks.push(callback);
-  }
+  };
 
-  fakeRaf.invoke = function(){
+  fakeRaf.invoke = function() {
     callbacks.forEach((callback) => {
       callback();
-    })
-  }
+    });
+  };
 
   return fakeRaf;
 }
 
 let _requestAnimationFrame = requestAnimationFrame;
 
-export function useFakeRaf(){
+export function useFakeRaf() {
   window.requestAnimationFrame = createFakeRaf();
 }
 
-export function restore(){
+export function restore() {
   window.requestAnimationFrame = _requestAnimationFrame;
 }
 
