@@ -10,5 +10,3 @@ export default class Model extends Base{
     _.extend(this, attributes);
   }
 }
-
-mixinObserve(Model.prototype);

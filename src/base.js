@@ -27,6 +27,14 @@ export default class Base{
   stopObservingOn(...args) {
     this.observer.stopObservingOn(...args);
   }
+
+  observe(...args){
+    this.observer.observe(this, ...args);
+  }
+
+  stopObserving(...args){
+    this.observer.stopObserving(this, ...args);
+  }
 }
 
 mixinEvents(Base.prototype);

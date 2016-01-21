@@ -1,7 +1,6 @@
 import _ from 'lodash';
 
 import Base from './base';
-import { mixinObserve } from 'observerkit';
 
 export default class Camera extends Base{
   constructor(options) {
@@ -34,5 +33,3 @@ export default class Camera extends Base{
     target.scale.y = this.zoom;
   }
 }
-
-mixinObserve(Camera.prototype);
