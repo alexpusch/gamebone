@@ -1,7 +1,8 @@
 import { mixinEvents, Listener, Observer } from 'observerkit';
 
 export default class Base{
-  constructor() {
+  constructor(options) {
+    this.options = options;
     this.listener = new Listener();
     this.observer = new Observer();
   }
