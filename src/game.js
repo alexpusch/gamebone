@@ -44,10 +44,6 @@ export default class Game{
     this.controls.touch(mapping);
   }
 
-  setFilters(filters) {
-    this.stage.filters = filters;
-  }
-
   addScreens(screens) {
     this.screenManager.add(screens);
   }
