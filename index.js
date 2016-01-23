@@ -9,6 +9,7 @@ import mixinP2Physics from "./src/phyisics_mixin"
 import Camera from "./src/camera"
 import Layout from "./src/layout"
 import Controller from "./src/controller"
+import Base from "./src/base"
 
 export {
   View,
@@ -21,5 +22,6 @@ export {
   mixinP2Physics,
   Camera,
   Layout,
-  Controller
+  Controller,
+  Base
 };
