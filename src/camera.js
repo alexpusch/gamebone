@@ -5,8 +5,8 @@ import Base from './base';
 export default class Camera extends Base{
   constructor(options) {
     super();
-    this.viewportWidth = options.width;
-    this.viewportHeight = options.height;
+    this.viewportWidth = options.viewportWidth;
+    this.viewportHeight = options.viewportHeight;
 
     this.tx = 0;
     this.ty = 0;
@@ -24,6 +24,19 @@ export default class Camera extends Base{
       target.scale.x = 1;
       target.scale.y = 1;
     });
+  }
+
+  getBoundingBox(){
+    return {
+      topLeft: {
+        x: this.tx * -1,
+        y: this.ty * -1
+      },
+      bottomRight: {
+        x: this.tx * -1 + this.viewportWidth,
+        y: this.ty * -1 + this.viewportHeight
+      }
+    };
   }
 
   _adjustTarget(target) {
