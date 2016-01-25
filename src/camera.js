@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
 import Base from './base';
+import View from './view';
 
 export default class Camera extends Base{
   constructor(options) {
@@ -14,6 +15,10 @@ export default class Camera extends Base{
   }
 
   start(target) {
+    if(target instanceof View){
+      target = target.container;
+    }
+
     this.target = target;
     this.observe('tx ty zoom', this._adjustTarget.bind(this, target));
 
