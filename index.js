@@ -10,6 +10,7 @@ import Camera from "./src/camera"
 import Layout from "./src/layout"
 import Controller from "./src/controller"
 import Base from "./src/base"
+import ContainerView from "./src/container_view"
 
 export {
   View,
@@ -23,5 +24,6 @@ export {
   Camera,
   Layout,
   Controller,
-  Base
+  Base,
+  ContainerView
 };
