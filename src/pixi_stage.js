@@ -4,7 +4,7 @@ export default class PixiStage{
 
     this._stage = new PIXI.Container();
 
-    this._renderer = this.options._renderer || new PIXI.autoDetectRenderer(this.options.width, this.options.height);
+    this._renderer = this.options._renderer || new PIXI.WebGLRenderer(this.options.width, this.options.height);
   }
 
   show() {
